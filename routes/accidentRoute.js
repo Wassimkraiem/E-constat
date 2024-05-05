@@ -4,19 +4,16 @@ const accidentController = require("../controllers/accidentController");
 
 const router = express.Router();
 
-router.use(authController.protect);
+// router.use(authController.protect);
 router
   .route("/")
   .get(accidentController.getAllAccident)
-  .post(authController.restrictTo("admin"), accidentController.createAccident);
+  .post(accidentController.createAccident);
 
 router
   .route("/:id")
-  .get(accidentController.getaccident)
-  .patch(authController.restrictTo("admin"), accidentController.updateAccident)
-  .delete(
-    authController.restrictTo("admin"),
-    accidentController.deleteAccident
-  );
+  .get(accidentController.getAccident)
+  .patch(accidentController.updateAccident)
+  .delete(accidentController.deleteAccident);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const voitureController = require("../controllers/voitureController");
 
 const router = express.Router();
 
-router.use(authController.protect);
+// router.use(authController.protect);
 router
   .route("/")
   .get(voitureController.getAllVoiture)

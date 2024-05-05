@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
 
 const voitureSchema = new mongoose.Schema({
-  assurance: {
+  typeVehicule: {
     type: String,
-    required: true,
+  },
+  assurance: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Assurance",
   },
   mat: {
     type: String,
-    required: [true, "Please provide a matricule for the vehicule "],
-  },
-  numeroContrat: {
-    type: String,
-    required: [true, "Please provide a matricule for the vehicule "],
   },
 });
 const voiture = mongoose.model("voiture", voitureSchema);

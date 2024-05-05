@@ -17,6 +17,10 @@ const userRouter = require("./routes/userRoutes");
 const assuranceRouter = require("./routes/assuranceRoutes");
 const voitureRouter = require("./routes/voitureRoutes");
 const accidentRouter = require("./routes/accidentRoute");
+const constatRouter = require("./routes/constatRoute");
+const temoinRouter = require("./routes/temoinRoute");
+const choqRouter = require("./routes/temoinRoute");
+const circonstanceRouter = require("./routes/circonstanceRoute");
 
 // Start express app
 const app = express();
@@ -76,18 +80,15 @@ app.use(
 
 app.use(compression());
 
-// Test middleware
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  // console.log(req.cookies);
-  next();
-});
-
 // 3) ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/assurance", assuranceRouter);
 app.use("/api/v1/voiture", voitureRouter);
 app.use("/api/v1/accident", accidentRouter);
+app.use("/api/v1/constat", constatRouter);
+app.use("/api/v1/temoin", temoinRouter);
+app.use("/api/v1/choq", choqRouter);
+app.use("/api/v1/circonstance", circonstanceRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
