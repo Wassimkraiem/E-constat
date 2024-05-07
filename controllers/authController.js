@@ -2,9 +2,11 @@ const crypto = require("crypto");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
+const Constat = require("./../models/constatModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const Email = require("./../utils/email");
+const nodemailer = require("nodemailer");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -243,4 +245,36 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   // 4) Log user in, send JWT
   createSendToken(user, 200, req, res);
+});
+
+exports.sendConstat = catchAsync(async (req, res, next) => {
+  const constat = await Constat.findOne({
+    adressEmailA: req.body.adressEmailA,
+  });
+  if (!constat) {
+    return next(new AppError("There is no constat with email address.", 404));
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "stmp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "wassim.kraiem.ess@gmail.com",
+      pass: "ugikfswzhbexevyk",
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_FROM,
+    to: constat.adressEmailA,
+    subject: "Constat ",
+    text: `here's your submited constat : ${constat}`,
+  };
+  const sendMail = catchAsync(async (transporter, mailOptions) => {
+    await transporter.sendMail(mailOptions);
+  });
+  sendMail(transporter, mailOptions);
+  next();
 });

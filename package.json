@@ -1,7 +1,6 @@
 {
   "name": "constat",
   "version": "1.0.0",
-  
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -23,6 +22,8 @@
     "express": "^4.16.4",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.1.5",
+    "gmail-node-mailer": "^1.9.1",
+    "googleapis": "^136.0.0",
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
     "html-to-text": "^9.0.5",

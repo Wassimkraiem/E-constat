@@ -4,11 +4,11 @@ const constatController = require("../controllers/constatController");
 
 const router = express.Router();
 
-router.use(authController.protect);
+// router.use(authController.protect);
 router
   .route("/")
   .get(constatController.getAllConstat)
-  .post(constatController.createConstat);
+  .post(authController.sendConstat, constatController.createConstat);
 
 router
   .route("/:id")
