@@ -8,7 +8,7 @@ const router = express.Router();
 router
   .route("/")
   .get(constatController.getAllConstat)
-  .post(authController.sendConstat, constatController.createConstat);
+  .post(constatController.createConstat);
 
 router
   .route("/:id")
